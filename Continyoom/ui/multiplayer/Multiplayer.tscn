@@ -1,0 +1,88 @@
+[gd_scene format=2]
+
+[node name="Multiplayer" type="Node2D"]
+
+[node name="CarSelect" type="OptionButton" parent="."]
+margin_left = 45.0
+margin_top = 88.0
+margin_right = 164.0
+margin_bottom = 108.0
+text = "Default Kart"
+items = [ "Default Kart", null, false, 0, null, "CyberTruck", null, false, 1, null ]
+selected = 0
+
+[node name="TrackSelect" type="OptionButton" parent="."]
+margin_left = 47.5847
+margin_top = 138.402
+margin_right = 166.585
+margin_bottom = 158.402
+text = "Rainbow Road"
+items = [ "Rainbow Road", null, false, 0, null, "Track Uno", null, false, 1, null ]
+selected = 0
+
+[node name="LabelKart" type="Label" parent="."]
+margin_left = 47.0
+margin_top = 65.0
+margin_right = 76.0
+margin_bottom = 79.0
+text = "Kart:"
+
+[node name="LabelName" type="Label" parent="."]
+margin_left = 242.146
+margin_top = 70.1694
+margin_right = 271.146
+margin_bottom = 84.1694
+text = "name:"
+
+[node name="LabelIP" type="Label" parent="."]
+margin_left = 457.969
+margin_top = 68.8771
+margin_right = 497.969
+margin_bottom = 82.8771
+text = "IP:"
+
+[node name="LabelPort" type="Label" parent="."]
+margin_left = 643.969
+margin_top = 70.1694
+margin_right = 683.969
+margin_bottom = 84.1694
+text = "Port:"
+
+[node name="LabelTrack2" type="Label" parent="."]
+margin_left = 44.4153
+margin_top = 116.694
+margin_right = 73.4153
+margin_bottom = 130.694
+text = "track:"
+
+[node name="NameEdit" type="LineEdit" parent="."]
+margin_left = 239.0
+margin_top = 90.0
+margin_right = 400.0
+margin_bottom = 114.0
+
+[node name="IPEdit" type="LineEdit" parent="."]
+margin_left = 454.823
+margin_top = 88.7077
+margin_right = 615.823
+margin_bottom = 112.708
+
+[node name="PortEdit" type="LineEdit" parent="."]
+margin_left = 640.823
+margin_top = 90.0
+margin_right = 801.823
+margin_bottom = 114.0
+
+[node name="JoinButton" type="Button" parent="."]
+margin_left = 230.0
+margin_top = 150.0
+margin_right = 466.0
+margin_bottom = 191.0
+text = "join game"
+
+[node name="HostButton" type="Button" parent="."]
+margin_left = 520.0
+margin_top = 150.0
+margin_right = 756.0
+margin_bottom = 191.0
+text = "host game"

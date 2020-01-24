@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 [autoload]
 
 persistence="*res://tracks/archetype/persistence.gd"
+NetManager="*res://NetManager.gd"
 
 [input]
 
