@@ -15,6 +15,10 @@ var timescale: float = 1
 var history: Array = Array()
 var latest_state: Dictionary
 
+# multiplayer vars
+puppet var puppet_position
+puppet var puppet_basis
+
 # car physics and camera physics states
 onready var initial_phys_transform: Transform = get_global_transform()
 var phys_transform: Transform
@@ -73,30 +77,42 @@ func _prepare_cc(var cc):
 	ACTUAL_ACCEL = lerp(20, 10, lcc)
 
 func _ready():
-	self.connect("ground_hit", self, "_on_Car_ground_hit")
-	_reset()
+	if is_network_master():
+		$Camera.current = true
+		self.connect("ground_hit", self, "_on_Car_ground_hit")
+		_reset()
 
 
 func _physics_process(delta):
-	if Input.is_action_just_pressed("reset"):
-		_reset()
-	_keyboard_timescale()
-	delta *= timescale
-	if delta < 0:
-		_step_backward(-delta)
+	if is_network_master():
+		if Input.is_action_just_pressed("reset"):
+			_reset()
+		_keyboard_timescale()
+		delta *= timescale
+		if delta < 0:
+			_step_backward(-delta)
+		else:
+			_step_forward(delta)
+		_collide_ground(delta)
+		set_as_toplevel(true)
+		transform.origin = phys_transform.origin
+		transform = transform.interpolate_with(phys_transform, .1 )
+		$Camera.transform = camera_transform
+		phys_transform = phys_transform.orthonormalized()
+		transform = transform.orthonormalized()
+		$Camera.transform = $Camera.transform.orthonormalized()
+		emit_signal("timescale_updated", timescale)
+		emit_signal("targ_drift_updated", targ_drift)
+		emit_signal("curr_steer_updated", curr_steer)
+		
+		print("rsets called")
+		rset_unreliable("puppet_position", global_transform.origin)
+		rset_unreliable("puppet_basis", global_transform.basis)
 	else:
-		_step_forward(delta)
-	_collide_ground(delta)
-	set_as_toplevel(true)
-	transform.origin = phys_transform.origin
-	transform = transform.interpolate_with(phys_transform, .1 )
-	$Camera.transform = camera_transform
-	phys_transform = phys_transform.orthonormalized()
-	transform = transform.orthonormalized()
-	$Camera.transform = $Camera.transform.orthonormalized()
-	emit_signal("timescale_updated", timescale)
-	emit_signal("targ_drift_updated", targ_drift)
-	emit_signal("curr_steer_updated", curr_steer)
+		print("non master")
+		global_transform.origin = puppet_position
+		global_transform.basis = puppet_basis
+		
 
 
 func _step_backward(delta: float) -> void:

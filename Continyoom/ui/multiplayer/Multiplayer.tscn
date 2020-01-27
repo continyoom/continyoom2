@@ -1,6 +1,9 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ui/multiplayer/MultiplayerMenu.gd" type="Script" id=1]
 
 [node name="Multiplayer" type="Node2D"]
+script = ExtResource( 1 )
 
 [node name="CarSelect" type="OptionButton" parent="."]
 margin_left = 45.0
@@ -60,18 +63,21 @@ margin_left = 239.0
 margin_top = 90.0
 margin_right = 400.0
 margin_bottom = 114.0
+text = "Driver"
 
 [node name="IPEdit" type="LineEdit" parent="."]
 margin_left = 454.823
 margin_top = 88.7077
 margin_right = 615.823
 margin_bottom = 112.708
+text = "127.0.0.1"
 
 [node name="PortEdit" type="LineEdit" parent="."]
 margin_left = 640.823
 margin_top = 90.0
 margin_right = 801.823
 margin_bottom = 114.0
+text = "42069"
 
 [node name="JoinButton" type="Button" parent="."]
 margin_left = 230.0
@@ -86,3 +92,45 @@ margin_top = 150.0
 margin_right = 756.0
 margin_bottom = 191.0
 text = "host game"
+
+[node name="startButton" type="Button" parent="."]
+margin_left = 773.0
+margin_top = 150.0
+margin_right = 878.0
+margin_bottom = 191.0
+text = "start game"
+
+[node name="Label" type="Label" parent="."]
+margin_left = 55.0
+margin_top = 220.0
+margin_right = 283.0
+margin_bottom = 553.0
+
+[node name="PlayersLabel" type="Label" parent="."]
+margin_left = 36.8321
+margin_top = 207.488
+margin_right = 76.8321
+margin_bottom = 221.488
+text = "Players:"
+
+[node name="PlayersLabel2" type="Label" parent="."]
+margin_left = 254.142
+margin_top = 217.31
+margin_right = 304.142
+margin_bottom = 231.31
+text = "status:"
+
+[node name="gamers" type="Label" parent="."]
+margin_left = 36.0
+margin_top = 234.0
+margin_right = 182.0
+margin_bottom = 581.0
+
+[node name="message" type="Label" parent="."]
+margin_left = 254.711
+margin_top = 242.822
+margin_right = 630.711
+margin_bottom = 289.822
+[connection signal="pressed" from="JoinButton" to="." method="_on_JoinButton_pressed"]
+[connection signal="pressed" from="HostButton" to="." method="_on_HostButton_pressed"]
+[connection signal="pressed" from="startButton" to="." method="_on_startButton_pressed"]
