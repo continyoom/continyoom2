@@ -12,6 +12,15 @@ func add_track(path: String):
 	track.get_node("CarStart").connect("tfm_ready", $Car, "set_start")
 
 
+func add_car_networked(path: String, network_master_id: int):
+	var car_visual: Node = load(path).instance()
+	$Car.add_child(car_visual, true)
+	$Car.connect("timescale_updated", car_visual, "_on_timescale_updated")
+	$Car.connect("targ_drift_updated", car_visual, "_on_targ_drift_updated")
+	$Car.connect("curr_steer_updated", car_visual, "_on_curr_steer_updated")
+	$Car.set_network_master(network_master_id)
+
+
 func add_car(path: String):
 	var car_visual: Node = load(path).instance()
 	$Car.add_child(car_visual, true)

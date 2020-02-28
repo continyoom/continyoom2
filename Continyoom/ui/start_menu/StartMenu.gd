@@ -9,7 +9,6 @@ var cc: float = 0
 
 enum { TITLE, SPEED, TRACK_SELECT, CAR_SELECT, START, LOADING }
 
-
 func _ready():
 	$WideCar.show()
 	$Blur.show()

@@ -16,8 +16,8 @@ var history: Array = Array()
 var latest_state: Dictionary
 
 # multiplayer vars
-puppet var puppet_position
-puppet var puppet_basis
+puppet var puppet_position: Vector3
+puppet var puppet_basis: Basis
 
 # car physics and camera physics states
 onready var initial_phys_transform: Transform = get_global_transform()
@@ -84,7 +84,7 @@ func _ready():
 
 
 func _physics_process(delta):
-	if is_network_master():
+	if is_network_master() || get_tree().network_peer == null:
 		if Input.is_action_just_pressed("reset"):
 			_reset()
 		_keyboard_timescale()
@@ -104,14 +104,17 @@ func _physics_process(delta):
 		emit_signal("timescale_updated", timescale)
 		emit_signal("targ_drift_updated", targ_drift)
 		emit_signal("curr_steer_updated", curr_steer)
-		
-		print("rsets called")
-		rset_unreliable("puppet_position", global_transform.origin)
-		rset_unreliable("puppet_basis", global_transform.basis)
+		if not get_tree().network_peer == null:
+			print("rsets called")
+			rset_unreliable("puppet_position", global_transform.origin)
+			rset_unreliable("puppet_basis", global_transform.basis)
 	else:
 		print("non master")
-		global_transform.origin = puppet_position
-		global_transform.basis = puppet_basis
+		if not global_transform == null: 
+			global_transform.origin = puppet_position
+			global_transform.basis = puppet_basis
+		else:
+			print("global transform is null")
 		
 
 
